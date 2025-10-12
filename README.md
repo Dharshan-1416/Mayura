@@ -1,8 +1,18 @@
-# Internal LMS - Learning Management System
+# Mayura LMS - Elevating Learning Excellence
 
-A production-ready, role-based Learning Management System built exclusively for company Trainers and Trainees with an enterprise-grade UX and the signature HUD Gold Ring loader.
+A stunning, production-ready Learning Management System with a captivating landing page, holographic animations, and enterprise-grade UX. Built exclusively for modern training needs with the signature HUD Gold Ring loader.
 
 ## Features
+
+### Landing Page Experience
+- **Stunning Hero Section** - Eye-catching gradient animations and holographic effects
+- **Live Stats Display** - Showcasing platform success metrics
+- **Interactive Features Grid** - Animated feature cards with hover effects
+- **User Testimonials** - Social proof with 5-star ratings
+- **Smooth Scroll Navigation** - Anchor links with smooth scrolling
+- **Holographic Branding** - Shimmer effects on logo and key elements
+- **Floating Background Elements** - Animated gradient orbs
+- **Call-to-Action Flow** - Clear conversion paths to registration
 
 ### Core Functionality
 - **Role-Based Authentication** - Separate experiences for Trainers and Trainees
@@ -13,13 +23,16 @@ A production-ready, role-based Learning Management System built exclusively for 
 - **Discussion Forums** - Course-specific discussions for collaboration
 - **Progress Tracking** - Track completion and progress for trainees
 
-### User Experience
+### User Experience & Design
 - **HUD Gold Ring Loader** - Signature animated loader with two variants:
   - Micro inline spinner for quick operations (<300ms)
   - Full-screen HUD overlay for longer operations
   - Respects `prefers-reduced-motion` with static fallbacks
-- **Large Scannable Cards** - Easy-to-read course and content cards
+- **Holographic Animations** - Shimmer effects and gradient transitions throughout
+- **Smooth Transitions** - Fade-in, slide-up, and floating animations
+- **Large Scannable Cards** - Easy-to-read course and content cards with hover effects
 - **One-Click Primary Actions** - Minimal clicks for common tasks
+- **Gradient Accents** - Amber to orange gradients for visual appeal
 - **Keyboard Accessible** - Full keyboard navigation support
 - **High Contrast** - WCAG-compliant contrast ratios
 - **Responsive Design** - Works seamlessly on mobile, tablet, and desktop
@@ -44,6 +57,7 @@ src/
 │   ├── AuthContext.tsx        # Authentication & user management
 │   └── DataContext.tsx        # Course, assignment, submission data
 ├── pages/
+│   ├── Landing.tsx            # Stunning landing page with animations
 │   ├── Login.tsx              # Authentication page
 │   ├── Register.tsx           # User registration
 │   ├── TrainerDashboard.tsx   # Trainer home
@@ -55,7 +69,7 @@ src/
 ├── types/
 │   └── index.ts               # TypeScript type definitions
 ├── App.tsx                    # Main app routing
-└── index.css                  # Global styles & animations
+└── index.css                  # Global styles & holographic animations
 ```
 
 ## Getting Started

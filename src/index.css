@@ -158,4 +158,117 @@
       filter: none;
     }
   }
+
+  .holographic-text {
+    animation: holographicShimmer 3s ease-in-out infinite;
+  }
+
+  .bg-grid-pattern {
+    background-image: linear-gradient(rgba(251, 191, 36, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(251, 191, 36, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .animate-fade-in-delayed {
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1s ease-out;
+  }
+
+  @keyframes holographicShimmer {
+    0%, 100% {
+      filter: brightness(1) hue-rotate(0deg);
+    }
+    25% {
+      filter: brightness(1.1) hue-rotate(5deg);
+    }
+    50% {
+      filter: brightness(1) hue-rotate(0deg);
+    }
+    75% {
+      filter: brightness(1.1) hue-rotate(-5deg);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-10px);
+    }
+    75% {
+      transform: translateY(-30px) translateX(5px);
+    }
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .holographic-text,
+    .animate-float,
+    .animate-float-delayed,
+    .animate-gradient,
+    .animate-fade-in,
+    .animate-fade-in-delayed,
+    .animate-slide-up {
+      animation: none !important;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }

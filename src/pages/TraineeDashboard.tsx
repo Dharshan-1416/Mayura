@@ -54,7 +54,7 @@ export const TraineeDashboard: React.FC<TraineeDashboardProps> = ({
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">Internal LMS</h1>
+                <h1 className="text-xl font-bold text-white">Mayura LMS</h1>
                 <p className="text-xs text-slate-400">My Learning</p>
               </div>
             </div>

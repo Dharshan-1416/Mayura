@@ -43,7 +43,7 @@ export const Register: React.FC<RegisterProps> = ({ onNavigateToLogin }) => {
               </svg>
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-            <p className="text-slate-400">Join the Internal LMS</p>
+            <p className="text-slate-400">Join the Mayura LMS</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
