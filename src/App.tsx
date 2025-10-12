@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DataProvider } from './contexts/DataContext';
-import { Landing } from './pages/Landing';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { TrainerDashboard } from './pages/TrainerDashboard';
@@ -13,7 +12,6 @@ import { GradingQueue } from './pages/GradingQueue';
 import { HUDLoader } from './components/HUDLoader';
 
 type View =
-  | { type: 'landing' }
   | { type: 'login' }
   | { type: 'register' }
   | { type: 'trainerDashboard' }
@@ -25,31 +23,17 @@ type View =
 
 function AppContent() {
   const { user, loading } = useAuth();
-  const [view, setView] = useState<View>({ type: 'landing' });
+  const [view, setView] = useState<View>({ type: 'login' });
 
   if (loading) {
     return <HUDLoader variant="fullscreen" message="Loading..." />;
   }
 
   if (!user) {
-    if (view.type === 'landing') {
-      return (
-        <Landing
-          onLogin={() => setView({ type: 'login' })}
-          onRegister={() => setView({ type: 'register' })}
-          onExploreCourses={() => setView({ type: 'login' })}
-        />
-      );
-    }
     if (view.type === 'register') {
       return <Register onNavigateToLogin={() => setView({ type: 'login' })} />;
     }
-    return (
-      <Login
-        onNavigateToRegister={() => setView({ type: 'register' })}
-        onBack={() => setView({ type: 'landing' })}
-      />
-    );
+    return <Login onNavigateToRegister={() => setView({ type: 'register' })} />;
   }
 
   if (user.role === 'trainer') {

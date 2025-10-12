@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
-import { BookOpen, Plus, Users, ClipboardList, User } from 'lucide-react';
+import { BookOpen, Plus, Users, ClipboardList, LogOut } from 'lucide-react';
 import { HUDLoader } from '../components/HUDLoader';
 
 interface TrainerDashboardProps {
@@ -39,42 +39,37 @@ export const TrainerDashboard: React.FC<TrainerDashboardProps> = ({
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {loading && <HUDLoader variant="fullscreen" message="Loading Dashboard..." />}
 
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
+      <nav className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-white" />
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-base font-bold text-white">Mayura LMS</h1>
+                <h1 className="text-xl font-bold text-white">Internal LMS</h1>
+                <p className="text-xs text-slate-400">Trainer Dashboard</p>
               </div>
             </div>
 
-            <button
-              onClick={logout}
-              className="group flex items-center space-x-2 px-3 py-1.5 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-lg transition"
-              aria-label="User menu"
-            >
-              <div className="w-7 h-7 bg-gradient-to-br from-slate-700 to-slate-600 rounded-full flex items-center justify-center">
-                <User className="w-4 h-4 text-white" />
+            <div className="flex items-center space-x-4">
+              <div className="text-right">
+                <p className="text-sm font-medium text-white">{user?.fullName}</p>
+                <p className="text-xs text-slate-400">{user?.email}</p>
               </div>
-              <span className="text-sm font-medium hidden sm:block">{user?.fullName}</span>
-            </button>
+              <button
+                onClick={logout}
+                className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition"
+                aria-label="Sign out"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
-      <button
-        onClick={onCreateCourse}
-        className="fixed bottom-6 right-6 z-50 group flex items-center space-x-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold py-4 px-4 rounded-full shadow-2xl hover:shadow-amber-500/50 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900"
-        aria-label="Create new course"
-      >
-        <Plus className="w-6 h-6" />
-        <span className="hidden sm:inline-block pr-2">Create Course</span>
-      </button>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
             <div className="flex items-center justify-between mb-2">
@@ -101,7 +96,17 @@ export const TrainerDashboard: React.FC<TrainerDashboardProps> = ({
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold text-white mb-6">My Courses</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-white">My Courses</h2>
+          <button
+            onClick={onCreateCourse}
+            className="flex items-center space-x-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            aria-label="Create new course"
+          >
+            <Plus className="w-5 h-5" />
+            <span>Create Course</span>
+          </button>
+        </div>
 
         {myCourses.length === 0 ? (
           <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700 rounded-xl p-12 text-center">

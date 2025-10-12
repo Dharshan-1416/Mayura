@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
-import { ArrowLeft, BookOpen, Plus, FileText, Video, ExternalLink, Trash2, Send, Upload } from 'lucide-react';
+import { ArrowLeft, BookOpen, Plus, FileText, Pencil, Trash2, MessageSquare, Send } from 'lucide-react';
 import { Course } from '../types';
-import { MaterialUpload } from '../components/MaterialUpload';
 
 interface CourseDetailProps {
   courseId: string;
@@ -30,7 +29,6 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ courseId, onBack }) 
   const [showMaterialForm, setShowMaterialForm] = useState<string | null>(null);
   const [materialTitle, setMaterialTitle] = useState('');
   const [materialContent, setMaterialContent] = useState('');
-  const [showFileUpload, setShowFileUpload] = useState<string | null>(null);
 
   const [discussionText, setDiscussionText] = useState('');
 
@@ -93,36 +91,6 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ courseId, onBack }) 
     setMaterialTitle('');
     setMaterialContent('');
     setShowMaterialForm(null);
-  };
-
-  const handleAddFile = (moduleId: string, fileData: { fileUrl: string; fileType: 'video' | 'pdf' }) => {
-    const moduleMaterials = courseMaterials[moduleId] || [];
-    const fileTitle = fileData.fileType === 'video' ? 'Video Lecture' : 'PDF Document';
-
-    addMaterial({
-      moduleId,
-      title: fileTitle,
-      content: '',
-      fileUrl: fileData.fileUrl,
-      fileType: fileData.fileType,
-      orderIndex: moduleMaterials.length
-    });
-
-    setShowFileUpload(null);
-  };
-
-  const getVideoEmbedUrl = (url: string) => {
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      const videoId = url.includes('youtu.be')
-        ? url.split('youtu.be/')[1]?.split('?')[0]
-        : url.split('v=')[1]?.split('&')[0];
-      return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
-    }
-    if (url.includes('vimeo.com')) {
-      const videoId = url.split('vimeo.com/')[1]?.split('?')[0];
-      return videoId ? `https://player.vimeo.com/video/${videoId}` : url;
-    }
-    return url;
   };
 
   const handleDeleteMaterial = (materialId: string) => {
@@ -302,60 +270,30 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ courseId, onBack }) 
                         </div>
                       )}
 
-                      <div className="p-4 space-y-3">
+                      <div className="p-4 space-y-2">
                         {courseMaterials[module.id]?.map(material => (
-                          <div key={material.id} className="bg-slate-800/30 rounded-lg overflow-hidden">
-                            {material.fileType === 'video' && material.fileUrl && (
-                              <div className="aspect-video bg-black">
-                                <iframe
-                                  src={getVideoEmbedUrl(material.fileUrl)}
-                                  className="w-full h-full"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                  allowFullScreen
-                                  title={material.title}
-                                />
-                              </div>
-                            )}
-
-                            <div className="flex items-center justify-between px-4 py-3">
-                              <div className="flex items-center space-x-3 flex-1">
-                                {material.fileType === 'video' ? (
-                                  <Video className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                                ) : material.fileType === 'pdf' ? (
-                                  <FileText className="w-5 h-5 text-red-500 flex-shrink-0" />
-                                ) : (
-                                  <FileText className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-white font-medium">{material.title}</p>
-                                  {material.content && (
-                                    <p className="text-slate-400 text-sm line-clamp-1">{material.content}</p>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                {material.fileUrl && material.fileType === 'pdf' && (
-                                  <a
-                                    href={material.fileUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="p-2 text-slate-400 hover:text-amber-400 transition"
-                                    aria-label="Open PDF"
-                                  >
-                                    <ExternalLink className="w-4 h-4" />
-                                  </a>
-                                )}
-                                {isTrainer && (
-                                  <button
-                                    onClick={() => handleDeleteMaterial(material.id)}
-                                    className="p-2 text-slate-400 hover:text-red-400 transition"
-                                    aria-label="Delete material"
-                                  >
-                                    <Trash2 className="w-4 h-4" />
-                                  </button>
+                          <div
+                            key={material.id}
+                            className="flex items-center justify-between bg-slate-800/30 px-4 py-3 rounded-lg"
+                          >
+                            <div className="flex items-center space-x-3">
+                              <FileText className="w-5 h-5 text-slate-400" />
+                              <div>
+                                <p className="text-white font-medium">{material.title}</p>
+                                {material.content && (
+                                  <p className="text-slate-400 text-sm line-clamp-1">{material.content}</p>
                                 )}
                               </div>
                             </div>
+                            {isTrainer && (
+                              <button
+                                onClick={() => handleDeleteMaterial(material.id)}
+                                className="p-1 text-slate-400 hover:text-red-400 transition"
+                                aria-label="Delete material"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            )}
                           </div>
                         ))}
 
@@ -392,32 +330,15 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ courseId, onBack }) 
                           </div>
                         )}
 
-                        {isTrainer && showFileUpload === module.id && (
-                          <MaterialUpload
-                            onUpload={(fileData) => handleAddFile(module.id, fileData)}
-                            onCancel={() => setShowFileUpload(null)}
-                          />
-                        )}
-
-                        {isTrainer && showMaterialForm !== module.id && showFileUpload !== module.id && (
-                          <div className="grid grid-cols-2 gap-2">
-                            <button
-                              onClick={() => setShowMaterialForm(module.id)}
-                              className="flex items-center justify-center space-x-2 py-2 text-slate-400 hover:text-amber-500 hover:bg-slate-800/30 rounded-lg transition"
-                              aria-label="Add text material"
-                            >
-                              <Plus className="w-4 h-4" />
-                              <span className="text-sm font-medium">Add Text</span>
-                            </button>
-                            <button
-                              onClick={() => setShowFileUpload(module.id)}
-                              className="flex items-center justify-center space-x-2 py-2 text-slate-400 hover:text-amber-500 hover:bg-slate-800/30 rounded-lg transition"
-                              aria-label="Add video or PDF"
-                            >
-                              <Upload className="w-4 h-4" />
-                              <span className="text-sm font-medium">Add Media</span>
-                            </button>
-                          </div>
+                        {isTrainer && showMaterialForm !== module.id && (
+                          <button
+                            onClick={() => setShowMaterialForm(module.id)}
+                            className="w-full flex items-center justify-center space-x-2 py-2 text-slate-400 hover:text-amber-500 hover:bg-slate-800/30 rounded-lg transition"
+                            aria-label="Add material"
+                          >
+                            <Plus className="w-4 h-4" />
+                            <span className="text-sm font-medium">Add Material</span>
+                          </button>
                         )}
                       </div>
                     </div>
