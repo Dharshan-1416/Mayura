@@ -217,3 +217,11 @@ The application is ready for deployment to:
 ## License
 
 Internal use only.
+
+# Mayura 
+# Team Details 
+## Naare Sudharshan Kumar
+## Tatikoda Jaideep
+## Bapanapalle Naredra 
+## Akkala Pavan Kalyan
+
