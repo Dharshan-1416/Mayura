@@ -50,26 +50,63 @@ A stunning, production-ready Learning Management System with a captivating landi
 ## Project Structure
 
 ```
-src/
-├── components/
-│   └── HUDLoader.tsx          # Signature gold ring loader
-├── contexts/
-│   ├── AuthContext.tsx        # Authentication & user management
-│   └── DataContext.tsx        # Course, assignment, submission data
-├── pages/
-│   ├── Landing.tsx            # Stunning landing page with animations
-│   ├── Login.tsx              # Authentication page
-│   ├── Register.tsx           # User registration
-│   ├── TrainerDashboard.tsx   # Trainer home
-│   ├── TraineeDashboard.tsx   # Trainee home
-│   ├── CourseBrowser.tsx      # Browse available courses
-│   ├── CreateCourse.tsx       # Course creation form
-│   ├── CourseDetail.tsx       # Course content & discussions
-│   └── GradingQueue.tsx       # Assignment grading interface
-├── types/
-│   └── index.ts               # TypeScript type definitions
-├── App.tsx                    # Main app routing
-└── index.css                  # Global styles & holographic animations
+project-root/
+├── client/                             # Frontend (React + TypeScript)
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── HUDLoader.tsx           # Signature gold ring loader
+│   │   ├── contexts/
+│   │   │   ├── AuthContext.tsx         # Authentication & user management
+│   │   │   └── DataContext.tsx         # Course, assignment, submission data
+│   │   ├── pages/
+│   │   │   ├── Landing.tsx             # Stunning landing page with animations
+│   │   │   ├── Login.tsx               # Authentication page
+│   │   │   ├── Register.tsx            # User registration
+│   │   │   ├── TrainerDashboard.tsx    # Trainer home
+│   │   │   ├── TraineeDashboard.tsx    # Trainee home
+│   │   │   ├── CourseBrowser.tsx       # Browse available courses
+│   │   │   ├── CreateCourse.tsx        # Course creation form
+│   │   │   ├── CourseDetail.tsx        # Course content & discussions
+│   │   │   └── GradingQueue.tsx        # Assignment grading interface
+│   │   ├── types/
+│   │   │   └── index.ts                # TypeScript type definitions
+│   │   ├── App.tsx                     # Main app routing
+│   │   └── index.css                   # Global styles & holographic animations
+│   └── package.json                    # Frontend dependencies & scripts
+│
+├── server/                             # Backend (Node.js + Express + MongoDB)
+│   ├── config/
+│   │   └── db.ts                       # MongoDB Atlas connection setup
+│   ├── models/                         # MongoDB data models (Mongoose)
+│   │   ├── User.ts                     # User schema (Trainer, Trainee)
+│   │   ├── Course.ts                   # Course schema (title, desc, trainer, etc.)
+│   │   ├── Assignment.ts               # Assignment schema (courseId, content, dueDate)
+│   │   ├── Submission.ts               # Trainee submissions & grading info
+│   │   └── Discussion.ts               # Forum-style discussions & comments
+│   ├── routes/                         # Express routes (API endpoints)
+│   │   ├── authRoutes.ts               # Login, Register, JWT auth
+│   │   ├── courseRoutes.ts             # CRUD for courses
+│   │   ├── assignmentRoutes.ts         # Assignments management
+│   │   ├── submissionRoutes.ts         # Upload & grade submissions
+│   │   └── discussionRoutes.ts         # Threaded discussions per course
+│   ├── controllers/                    # Business logic
+│   │   ├── authController.ts
+│   │   ├── courseController.ts
+│   │   ├── assignmentController.ts
+│   │   ├── submissionController.ts
+│   │   └── discussionController.ts
+│   ├── middleware/
+│   │   ├── authMiddleware.ts           # JWT validation
+│   │   └── errorHandler.ts             # Centralized error handler
+│   ├── utils/
+│   │   └── generateToken.ts            # JWT helper function
+│   ├── server.ts                       # Entry point (Express app)
+│   └── package.json                    # Backend dependencies & scripts
+│
+├── .env                                # MongoDB URI, JWT secrets, API keys
+├── README.md                           # Project documentation
+└── tsconfig.json                       # TypeScript config for both client & server
+
 ```
 
 ## Getting Started
